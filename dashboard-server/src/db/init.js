@@ -8,7 +8,7 @@ const sequelize = new Sequelize("db", "postgres", "123", {
   },
 });
 
-module.exports = sequelize.define("box", {
+const Box = sequelize.define("box", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -28,3 +28,15 @@ module.exports = sequelize.define("box", {
     allowNull: true,
   },
 });
+
+const BoxTypes = sequelize.define("boxTypes", {
+  type: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+});
+
+BoxTypes.hasMany(Box, { as: "boxes" });
+Box.belongsTo(BoxTypes);
+
+module.exports = { Box, BoxTypes };
