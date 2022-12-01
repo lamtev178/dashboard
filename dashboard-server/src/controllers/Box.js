@@ -3,8 +3,8 @@ const { Box } = require("../db/init");
 module.exports = {
   getBoxes: async (limit, offset) => {
     return await Box.findAll({
-      limit: limit || 5,
-      offset: offset || 0,
+      limit: +limit || 5,
+      offset: +offset || 0,
     });
   },
   addBox: async (box) => {

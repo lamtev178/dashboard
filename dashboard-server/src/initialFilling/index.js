@@ -8,7 +8,7 @@ function fillBoxTypes() {
   BoxType.addBoxType({ type: "big" });
 }
 async function fillBoxes() {
-  for (let i = 1; i < 40; i++) {
+  for (let i = 1; i < 100; i++) {
     await Box.addBox({
       name: `Box ${i}`,
       description: `About ${i} box`,
