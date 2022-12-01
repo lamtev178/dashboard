@@ -1,0 +1,11 @@
+@import "../../utils/constants.scss";
+
+.app_box {
+  background-color: $main-bg;
+  display: flex;
+  column-gap: 20px;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 0 20px;
+  color: white;
+}

@@ -1,0 +1,25 @@
+.asside {
+  width: 230px;
+  min-width: 230px;
+  height: 95vh;
+  margin: 30px 20px;
+  background: linear-gradient(0deg, #3358f4, #1d8cf8);
+  border-radius: 10px;
+  padding: 20px;
+  svg {
+    fill: white;
+  }
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+
+.asside_link_home {
+  display: block;
+  padding: 10px 15px;
+  font-size: 28px;
+  transition: color 0.3s ease;
+  &:hover {
+    cursor: pointer;
+    color: gray;
+  }
+}

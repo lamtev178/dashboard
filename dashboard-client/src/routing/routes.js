@@ -1,1 +1,2 @@
-export const HOME_ROUTE = "/";
+export const BOXES_ROUTE = "/";
+export const BOX_TYPES_ROUTE = "/types";

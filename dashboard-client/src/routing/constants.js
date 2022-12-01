@@ -1,9 +1,14 @@
+import BoxTypes from "../pages/BoxTypes/BoxTypes";
 import Home from "../pages/Home/Home";
-import { HOME_ROUTE } from "./routes";
+import { BOXES_ROUTE, BOX_TYPES_ROUTE } from "./routes";
 
 export const ROUTES = [
   {
-    path: HOME_ROUTE,
+    path: BOXES_ROUTE,
     component: <Home />,
+  },
+  {
+    path: BOX_TYPES_ROUTE,
+    component: <BoxTypes />,
   },
 ];
