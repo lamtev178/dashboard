@@ -7,7 +7,7 @@ export function useLazyLoad(callback) {
   useEffect(() => {
     async function callCallback() {
       const res = await callback();
-      if ((res.status && res.status >= 400) || res.data.length === 0)
+      if ((res?.status && res?.status >= 400) || res?.data?.length === 0)
         removeScrollLazyLoad();
     }
     if (data.length) callCallback();

@@ -7,12 +7,14 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Box,
 } from "@mui/material";
 import axios from "axios";
 import { useLazyLoad } from "../../hooks/useLazyLoad";
 import ModalLoader from "../../UI/modalLoader/ModalLoader";
 import { API_URL } from "../../utils/apiConstant";
 import { handleRemoveItem } from "../../utils/Box";
+import { ButtonAddBox } from "./buttonAddBox/ButtonAddBox";
 
 export default function Home() {
   const [loader, setLoader, items, setItems] = useLazyLoad(() => getMoreBox());
@@ -40,13 +42,16 @@ export default function Home() {
   };
 
   return (
-    <TableContainer component={Paper} sx={{ width: "100%", mb: "80px" }}>
-      <ModalLoader visible={loader} />
-      <Table stickyHeader aria-label="sticky table">
-        <HomeTableHead />
-        <HomeTableBody items={items} setItems={setItems} />
-      </Table>
-    </TableContainer>
+    <Box>
+      <ButtonAddBox />
+      <TableContainer component={Paper} sx={{ width: "100%", mb: "80px" }}>
+        <ModalLoader visible={loader} />
+        <Table stickyHeader aria-label="sticky table">
+          <HomeTableHead />
+          <HomeTableBody items={items} setItems={setItems} />
+        </Table>
+      </TableContainer>
+    </Box>
   );
 }
 

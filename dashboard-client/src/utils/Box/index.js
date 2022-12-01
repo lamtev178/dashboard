@@ -16,3 +16,17 @@ export async function handleRemoveItem(id, setItems) {
     console.log(e);
   }
 }
+export async function addBox(box) {
+  try {
+    const res = await axios({
+      method: "post",
+      url: `${API_URL}box`,
+      data: box,
+    });
+    console.log("add box =>> ", res);
+
+    return [];
+  } catch (e) {
+    console.log(e);
+  }
+}
