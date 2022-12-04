@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+    ports:
+      - "80:5432"
+  front:
+    build:
+      context: ./dashboard-client
+    ports:
+      - "3000:3000"
+  back:
+    environment:
+      - POSTGRES_DB=db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+      - PORT=8080
+    build:
+      context: ./dashboard-server
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db

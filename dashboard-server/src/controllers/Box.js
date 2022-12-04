@@ -5,6 +5,7 @@ module.exports = {
     return await Box.findAll({
       limit: +limit || 5,
       offset: +offset || 0,
+      include: ["boxType"],
     });
   },
   addBox: async (box) => {

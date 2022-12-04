@@ -6,6 +6,8 @@ const BoxTypesRouter = require("./src/router/BoxTypesRouter");
 const { Box, BoxTypes } = require("./src/db/init");
 const { fillBoxTypes, fillBoxes } = require("./src/initialFilling/index");
 
+const port = process.env.PORT || 8080;
+
 const corsOptions = {
   origin: "http://localhost:3000",
 };
@@ -18,13 +20,17 @@ app.use(cors(corsOptions));
 app.use("/box", BoxesRouter);
 app.use("/box-types", BoxTypesRouter);
 
-BoxTypes.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync db.");
-  fillBoxTypes();
-  Box.sequelize.sync().then(() => {
+BoxTypes.sequelize
+  .sync({ force: true })
+  .then(() => {
     console.log("Drop and re-sync db.");
-    fillBoxes();
+    fillBoxTypes();
+  })
+  .then(() => {
+    Box.sequelize.sync().then(() => {
+      console.log("Drop and re-sync db.");
+      fillBoxes();
+    });
   });
-});
 
-app.listen(8080, () => console.log("Server started on port 8080 "));
+app.listen(port, () => console.log("Server started on port", port));

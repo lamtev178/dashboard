@@ -1,11 +1,11 @@
 const BoxType = require("../controllers/BoxType");
 const Box = require("../controllers/Box");
 
-function fillBoxTypes() {
-  BoxType.addBoxType({ type: "square" });
-  BoxType.addBoxType({ type: "rect" });
-  BoxType.addBoxType({ type: "small" });
-  BoxType.addBoxType({ type: "big" });
+async function fillBoxTypes() {
+  await BoxType.addBoxType({ type: "square" });
+  await BoxType.addBoxType({ type: "rect" });
+  await BoxType.addBoxType({ type: "small" });
+  await BoxType.addBoxType({ type: "big" });
 }
 async function fillBoxes() {
   for (let i = 1; i < 100; i++) {

@@ -1,12 +1,17 @@
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize("db", "postgres", "123", {
-  dialect: "postgres",
-  host: "localhost",
-  port: "80",
-  define: {
-    timestamps: false,
-  },
-});
+const sequelize = new Sequelize(
+  "db",
+  process.env.POSTGRES_USER || "postgres",
+  process.env.POSTGRES_PASSWORD || "123",
+  {
+    dialect: "postgres",
+    host: process.env.POSTGRES_DB || "localhost",
+    port: "80",
+    define: {
+      timestamps: false,
+    },
+  }
+);
 
 const Box = sequelize.define("box", {
   id: {
@@ -36,7 +41,7 @@ const BoxTypes = sequelize.define("boxTypes", {
   },
 });
 
-BoxTypes.hasMany(Box, { as: "boxes" });
+BoxTypes.hasMany(Box, { as: "boxType" });
 Box.belongsTo(BoxTypes);
 
 module.exports = { Box, BoxTypes };
