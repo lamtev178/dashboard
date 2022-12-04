@@ -1,7 +1,8 @@
 import axios from "axios";
 import { API_URL } from "../apiConstant";
 
-export async function handleRemoveItem(id, setItems) {
+export async function handleRemoveItem(e, id, setItems) {
+  e.stopPropagation();
   try {
     const res = await axios({
       method: "delete",
@@ -24,8 +25,18 @@ export async function addBox(box) {
       data: box,
     });
     console.log("add box =>> ", res);
-
-    return [];
+  } catch (e) {
+    console.log(e);
+  }
+}
+export async function changeBox(box, id) {
+  try {
+    const res = await axios({
+      method: "patch",
+      url: `${API_URL}box?id=${id}`,
+      data: box,
+    });
+    console.log("add box =>> ", res);
   } catch (e) {
     console.log(e);
   }

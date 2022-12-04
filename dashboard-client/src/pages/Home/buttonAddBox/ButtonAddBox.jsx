@@ -1,13 +1,31 @@
-import { Button, Modal, TextField } from "@mui/material";
-import { useState } from "react";
+import {
+  Button,
+  InputLabel,
+  MenuItem,
+  Modal,
+  Select,
+  TextField,
+  FormControl,
+} from "@mui/material";
+import { useEffect, useState } from "react";
 import { addBox } from "../../../utils/Box";
-import styles from "./ButtonAddBox.module.scss";
+import { getBoxTypes } from "../../../utils/BoxTypes";
+import styles from "../HomeModal.module.scss";
 
 export function ButtonAddBox() {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [type, setType] = useState(null);
+  const [typesList, setTypes] = useState([]);
+
+  useEffect(() => {
+    (async function () {
+      setTypes(await getBoxTypes());
+    })();
+  }, []);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -17,11 +35,16 @@ export function ButtonAddBox() {
       name: name,
       price: price,
       description: description,
+      boxTypeId: type.id,
     };
     const res = await addBox(data);
     setOpen(false);
     console.log(res);
   };
+
+  function handleClickType(e) {
+    setType(e);
+  }
 
   return (
     <div className={styles.btn_add_server}>
@@ -61,6 +84,22 @@ export function ButtonAddBox() {
               value={price}
               onChange={(event) => setPrice(event.target.value)}
             />
+            <FormControl sx={{ minWidth: "100%" }}>
+              <InputLabel id="select-label">Type</InputLabel>
+              <Select
+                labelId="select-label"
+                id="select"
+                value={type || ""}
+                label="Type"
+                onChange={(e) => handleClickType(e.target.value)}
+              >
+                {typesList.map((type) => (
+                  <MenuItem value={type} key={type.id}>
+                    {type.type}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <Button
               variant="contained"
               type="submit"
