@@ -22,7 +22,6 @@ export default function Home() {
   const [loader, setLoader, items, setItems] = useLazyLoad(() => getMoreBox());
   const [open, setOpen] = useState(false);
   const [changeBox, setChangeBox] = useState(null);
-  console.log(open, changeBox);
 
   const getMoreBox = async () => {
     if (loader)
@@ -32,10 +31,7 @@ export default function Home() {
           url: `${API_URL}box?offset=${items.length || 0}&limit=25`,
           validateStatus: (status) => status < 500,
         });
-        console.log("getBoxes =>> ", res);
-
         if (res.status < 400) setItems([...items, ...res.data]);
-
         return res;
       } catch (e) {
         console.log(e);
@@ -47,7 +43,12 @@ export default function Home() {
   return (
     <Box>
       <ButtonAddBox />
-      <ChangeBox box={changeBox} open={open} setOpen={setOpen} />
+      <ChangeBox
+        box={changeBox}
+        open={open}
+        setOpen={setOpen}
+        setItems={setItems}
+      />
       <TableContainer component={Paper} sx={{ width: "100%", mb: "80px" }}>
         <ModalLoader visible={loader} />
         <Table stickyHeader aria-label="sticky table">

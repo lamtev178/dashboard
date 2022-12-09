@@ -9,13 +9,14 @@ import {
 } from "@mui/material";
 import { BOXES_ROUTE, BOX_TYPES_ROUTE } from "../../routing/routes";
 import DonutLargeIcon from "@mui/icons-material/DonutLarge";
+import { Link } from "react-router-dom";
 
 export default function Aside() {
   return (
     <nav className={styles.asside}>
       <List>
         <ListItem disablePadding>
-          <ListItemButton component="a" href={BOXES_ROUTE}>
+          <ListItemButton component={Link} to={BOXES_ROUTE}>
             <ListItemIcon>
               <DonutLargeIcon />
             </ListItemIcon>
@@ -23,7 +24,7 @@ export default function Aside() {
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton component="a" href={BOX_TYPES_ROUTE}>
+          <ListItemButton component={Link} to={BOX_TYPES_ROUTE}>
             <ListItemIcon>
               <DonutLargeIcon />
             </ListItemIcon>

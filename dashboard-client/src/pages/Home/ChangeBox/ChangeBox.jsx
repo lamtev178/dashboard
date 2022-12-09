@@ -12,7 +12,7 @@ import { changeBox } from "../../../utils/Box";
 import { getBoxTypes } from "../../../utils/BoxTypes";
 import styles from "../HomeModal.module.scss";
 
-export default function CreateBox({ open, setOpen, box }) {
+export default function CreateBox({ open, setOpen, box, setItems }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -20,7 +20,6 @@ export default function CreateBox({ open, setOpen, box }) {
   const [typesList, setTypes] = useState([]);
 
   function handleClickType(e) {
-    console.log(e);
     setType(e);
   }
 
@@ -35,22 +34,30 @@ export default function CreateBox({ open, setOpen, box }) {
     setName(box?.name);
     setDescription(box?.description);
     setPrice(box?.price);
-    setType(box?.boxType);
+    setType(box?.boxType.type);
   }, [open, box]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const typeId = typesList.filter((alltypes) => alltypes.type === type)[0];
     const data = {
       name: name,
       price: price,
       description: description,
-      type: type,
+      boxTypeId: typeId.id,
     };
     const res = await changeBox(data, box.id);
+    if (res?.status < 400) {
+      setItems((items) =>
+        items.map((item) =>
+          item.id === box.id
+            ? { id: box.id, ...data, boxTypeId: typeId.id, boxType: typeId }
+            : item
+        )
+      );
+    }
     setOpen(false);
-    console.log(res);
   };
-  console.log(type);
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
       <div className={styles.modal}>
@@ -91,7 +98,7 @@ export default function CreateBox({ open, setOpen, box }) {
             >
               {typesList &&
                 typesList.map((type) => (
-                  <MenuItem value={type} key={type.id}>
+                  <MenuItem value={type.type} key={type.id}>
                     {type.type}
                   </MenuItem>
                 ))}

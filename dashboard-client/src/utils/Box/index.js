@@ -37,6 +37,7 @@ export async function changeBox(box, id) {
       data: box,
     });
     console.log("add box =>> ", res);
+    return res;
   } catch (e) {
     console.log(e);
   }
