@@ -6,6 +6,7 @@ module.exports = {
       limit: +limit || 5,
       offset: +offset || 0,
       include: ["boxType"],
+      order: [["id"]],
     });
   },
   addBox: async (box) => {
